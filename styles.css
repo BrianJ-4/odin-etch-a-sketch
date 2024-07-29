@@ -1,0 +1,35 @@
+body{
+    background-color: #191919;
+}
+
+.gridBox {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    display: inline;
+}
+
+#gridContainer{
+    border: 2px cyan solid;
+    width: 67%
+}
+
+#mainContainer{
+    display: flex;
+    border: 2px red solid;
+    height: 85vh;
+    width: auto;
+}
+
+#controlsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px yellow solid;
+    width: 33%
+}
+
+#sizeDisplay{
+    color: aqua;
+    text-align: center;
+}
+
