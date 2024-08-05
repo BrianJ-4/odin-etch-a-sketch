@@ -1,10 +1,11 @@
 var gridSize = 16;
 
 const sizeDisplay = document.getElementById("sizeDisplay");
-sizeDisplay.innerHTML = gridSize;
+sizeDisplay.innerHTML = "Grid Size: " + gridSize;
 
 const colorInput = document.getElementById("colorInput");
 var boxColor = colorInput.value;
+var color = false;
 
 const sizeSlider = document.getElementById("sizeSlider");
 
@@ -17,19 +18,25 @@ rainbowCheckbox.addEventListener("change", function() {
     }
 })
 
+const darkenCheckbox = document.getElementById("darkenCheckbox");
+var darken = false;
+darkenCheckbox.addEventListener("change", function() {
+    darken = this.checked;
+})
+
 const resetButton = document.getElementById("resetButton");
 resetButton.onclick = function(){
     deleteGrid();
     createGrid(gridSize, rainbow);
 }
 
-createGrid(gridSize, rainbow);
 
+createGrid(gridSize);
 
-function createGrid(gridSize, rainbow){
+function createGrid(gridSize){
     console.log(rainbow)
     const gridContainer = document.getElementById("gridContainer");
-    const containerWidth = gridContainer.clientHeight;
+    const containerWidth = gridContainer.clientHeight - 50;
 
     for(let i = 0; i < gridSize; i++){
         const row = document.createElement("div");
@@ -42,6 +49,7 @@ function createGrid(gridSize, rainbow){
 
             box.addEventListener("mouseenter", () => {
                 box.style.backgroundColor = getColor();
+                lowerOpacity(box);
             });
                         
             row.append(box);
@@ -69,9 +77,15 @@ function getColor() {
     return boxColor;
 }
 
+function lowerOpacity(box){
+    if(darken){
+        box.style.opacity = window.getComputedStyle(box).opacity - 0.1;
+    }
+}
+
 sizeSlider.oninput = function(){
     gridSize = this.value;
-    sizeDisplay.innerHTML = this.value;
+    sizeDisplay.innerHTML = "Grid Size: " + this.value;
     deleteGrid();
     createGrid(gridSize, rainbow);
 }
@@ -79,5 +93,6 @@ sizeSlider.oninput = function(){
 colorInput.oninput = function(){
     boxColor = this.value;
 }
+
 
 

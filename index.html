@@ -9,13 +9,19 @@
 </head>
 <body>
     <h1>Etch-A-Sketch</h1>
-    <div id="mainContainer">        
+    <div id="mainContainer">                
         <div id="controlsContainer">
-            <button id = "resetButton">Reset</button>
-            <input type="checkbox" id = "rainbowCheckbox">           
-            <h1 id="sizeDisplay"></h1>
-            <input type="range" min="2" max="100" value="16" id="sizeSlider">
+            <div id="sizeContainer">
+                <input type="range" min="2" max="100" value="16" id="sizeSlider">
+                <h1 id="sizeDisplay"></h1>
+            </div>            
+            <div id = "options">
+                <input type="checkbox" id = "rainbowCheckbox">
+                <input type="checkbox" id = "darkenCheckbox">
+                <input type="checkbox" id = "colorCheckbox">
+            </div>          
             <input type="color" id="colorInput" value="#ff0000">
+            <button id = "resetButton">Reset</button>
         </div>
         <div id="gridContainer"></div>
     </div>

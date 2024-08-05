@@ -21,10 +21,13 @@ body{
 }
 
 #controlsContainer{
+    margin-top: 5%;
+    margin-bottom: 5%;
     display: flex;
+    margin-top: 5%;
     flex-direction: column;
-    justify-content: center;
-    border: 2px yellow solid;
+    justify-content: space-between;
+    border: 2px rgba(255, 251, 0, 0) solid;
     width: 33%
 }
 
@@ -33,3 +36,7 @@ body{
     text-align: center;
 }
 
+#sizeContainer{
+    display: flex;
+    flex-direction: column;
+}
