@@ -5,24 +5,8 @@ sizeDisplay.innerHTML = "Grid Size: " + gridSize;
 
 const colorInput = document.getElementById("colorInput");
 var boxColor = colorInput.value;
-var color = false;
 
 const sizeSlider = document.getElementById("sizeSlider");
-
-const rainbowCheckbox = document.getElementById("rainbowCheckbox");
-var rainbow = false;
-rainbowCheckbox.addEventListener("change", function() {
-    rainbow = this.checked;
-    if(!rainbow){
-        boxColor = colorInput.value;
-    }
-})
-
-const darkenCheckbox = document.getElementById("darkenCheckbox");
-var darken = false;
-darkenCheckbox.addEventListener("change", function() {
-    darken = this.checked;
-})
 
 const resetButton = document.getElementById("resetButton");
 resetButton.onclick = function(){
@@ -30,9 +14,88 @@ resetButton.onclick = function(){
     createGrid(gridSize, rainbow);
 }
 
+// Color controls ---------------------------------------------
+const colorButton = document.getElementById("colorButton");
+var color = true;
+colorButton.addEventListener("click", function() {
+    if(!color){
+        color = true;
 
-createGrid(gridSize);
+        rainbow = false;
+        eraser = false;
+        updateColorControls()
+    }
+})
 
+const rainbowButton = document.getElementById("rainbowButton");
+var rainbow = false;
+rainbowButton.addEventListener("click", function() {
+    if(!rainbow){
+        rainbow = true;
+
+        color = false;
+        eraser = false;
+        updateColorControls()
+    }
+})
+
+const eraserButton = document.getElementById("eraserButton");
+var eraser = false;
+eraserButton.addEventListener("click", function() {    
+    if(!eraser){
+        eraser = true;
+
+        color = false;
+        rainbow = false;
+        updateColorControls()
+    }
+})
+
+
+function updateColorControls(){
+    if(color){
+        colorButton.style.backgroundColor = "red"
+    }
+    else{
+        colorButton.style.backgroundColor = "white"
+    }
+
+    if(rainbow){
+        rainbowButton.style.backgroundColor = "red"
+    }
+    else{
+        rainbowButton.style.backgroundColor = "white"
+    }
+
+    if(eraser){
+        eraserButton.style.backgroundColor = "red"
+    }
+    else{
+        eraserButton.style.backgroundColor = "white"
+    }
+}
+// ------------------------------------------------------------
+
+// Darken -----------------------------------------------------
+const darkenButton = document.getElementById("darkenButton");
+var darken = false;
+darkenButton.addEventListener("click", function() {    
+    if(!darken){
+        darken = true;
+        darkenButton.style.backgroundColor = "red"
+    }
+    else{
+        darken = false;
+        darkenButton.style.backgroundColor = "white"    
+    }
+})
+
+function lowerOpacity(box){  
+    box.style.opacity = window.getComputedStyle(box).opacity - 0.1;
+}
+// ------------------------------------------------------------
+
+// Grid -------------------------------------------------------
 function createGrid(gridSize){
     console.log(rainbow)
     const gridContainer = document.getElementById("gridContainer");
@@ -49,7 +112,13 @@ function createGrid(gridSize){
 
             box.addEventListener("mouseenter", () => {
                 box.style.backgroundColor = getColor();
-                lowerOpacity(box);
+                if(darken && !eraser) {
+                    lowerOpacity(box);
+                }
+                else{
+                    box.style.opacity = 1.0
+                    console.log("HIT");
+                }                
             });
                         
             row.append(box);
@@ -66,6 +135,14 @@ function deleteGrid(){
     }
 }
 
+sizeSlider.oninput = function(){
+    gridSize = this.value;
+    sizeDisplay.innerHTML = "Grid Size: " + this.value;
+    deleteGrid();
+    createGrid(gridSize, rainbow);
+}
+// ------------------------------------------------------------
+
 function getColor() {
     if(rainbow){
         const letters = '0123456789ABCDEF';
@@ -73,26 +150,15 @@ function getColor() {
         for (let i = 0; i < 6; i++) {
             boxColor += letters[Math.floor(Math.random() * 16)];
         }
-    }    
+    }
+    else if(color){
+        boxColor = colorInput.value;
+    }
+    else{
+        boxColor = "white";
+    }
     return boxColor;
 }
 
-function lowerOpacity(box){
-    if(darken){
-        box.style.opacity = window.getComputedStyle(box).opacity - 0.1;
-    }
-}
-
-sizeSlider.oninput = function(){
-    gridSize = this.value;
-    sizeDisplay.innerHTML = "Grid Size: " + this.value;
-    deleteGrid();
-    createGrid(gridSize, rainbow);
-}
-
-colorInput.oninput = function(){
-    boxColor = this.value;
-}
-
-
-
+createGrid(gridSize);
+updateColorControls();

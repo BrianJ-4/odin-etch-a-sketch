@@ -16,9 +16,12 @@
                 <h1 id="sizeDisplay"></h1>
             </div>            
             <div id = "options">
-                <input type="checkbox" id = "rainbowCheckbox">
-                <input type="checkbox" id = "darkenCheckbox">
-                <input type="checkbox" id = "colorCheckbox">
+                <fieldset id="colorControls">
+                    <button id="colorButton" class="optionButton">Color</button>
+                    <button id="rainbowButton" class="optionButton">Rainbow</button>
+                    <button id="eraserButton" class="optionButton">Eraser</button>
+                </fieldset>
+                <button id="darkenButton" class="optionButton">Darken</button>
             </div>          
             <input type="color" id="colorInput" value="#ff0000">
             <button id = "resetButton">Reset</button>
